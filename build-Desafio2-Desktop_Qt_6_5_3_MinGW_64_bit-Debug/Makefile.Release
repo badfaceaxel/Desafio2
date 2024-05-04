@@ -115,18 +115,18 @@ compiler_clean:
 release/estacion.o: ../Desafio2/estacion.cpp ../Desafio2/estacion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\estacion.o ..\Desafio2\estacion.cpp
 
-release/lineametro.o: ../Desafio2/lineametro.cpp ../Desafio2/lineametro.h \
-		../Desafio2/estacion.h
+release/lineametro.o: ../Desafio2/lineametro.cpp ../Desafio2/LineaMetro.h \
+		../Desafio2/Estacion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\lineametro.o ..\Desafio2\lineametro.cpp
 
-release/main.o: ../Desafio2/main.cpp ../Desafio2/redmetro.h \
-		../Desafio2/lineametro.h \
-		../Desafio2/estacion.h
+release/main.o: ../Desafio2/main.cpp ../Desafio2/Estacion.h \
+		../Desafio2/LineaMetro.h \
+		../Desafio2/RedMetro.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o ..\Desafio2\main.cpp
 
-release/redmetro.o: ../Desafio2/redmetro.cpp ../Desafio2/redmetro.h \
-		../Desafio2/lineametro.h \
-		../Desafio2/estacion.h
+release/redmetro.o: ../Desafio2/redmetro.cpp ../Desafio2/RedMetro.h \
+		../Desafio2/LineaMetro.h \
+		../Desafio2/Estacion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\redmetro.o ..\Desafio2\redmetro.cpp
 
 ####### Install
