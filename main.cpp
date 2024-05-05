@@ -12,6 +12,7 @@ int main() {
     do {
         std::cout << "      RED METRO    "<<endl;
         cout<<endl;
+        std::cout << "\n** Menu **\n";
         std::cout << "A. Agregar una estacion a una linea\n";
         std::cout << "B. Eliminar una estacion de una linea\n";
         std::cout << "C. Saber cuantas lineas tiene la red Metro\n";
@@ -22,8 +23,7 @@ int main() {
         std::cout << "H. Saber cuantas estaciones tiene la red Metro\n";
         std::cout << "I. Graficar la red Metro\n";
         std::cout << "X. Salir\n";
-        cout<<endl;
-        std::cout << "Seleccione una opcion: ";
+        std::cout << "Ingrese una opcion: ";
         std::cin >> opcion;
         cout<<endl;
         cout<<endl;
@@ -38,12 +38,25 @@ int main() {
             std::cin >> nombreLinea;
             std::cout << "Ingrese el nombre de la estacion: ";
             std::cin >> nombreEstacion;
-            redMetro.agregarEstacionALinea(nombreLinea, nombreEstacion);
+            std::cout << "Ingrese la posición en la que desea agregar la estación: ";
+            std::cin >> posicion;
+            redMetro.agregarEstacionALineaEnPosicion(nombreLinea, nombreEstacion, posicion);
             cout<<endl;
             cout<<endl;
             break;
         case 'B':
-
+            // Eliminar una estación de una línea
+            std::cout << "Ingrese el nombre de la linea: ";
+            std::cin >> nombreLinea;
+            std::cout << "Ingrese el nombre de la estacion que desea eliminar: ";
+            std::cin >> nombreEstacion;
+            if (redMetro.eliminarEstacionDeLinea(nombreLinea, nombreEstacion)) {
+                std::cout << "Estación eliminada exitosamente de la línea." << std::endl;
+            } else {
+                std::cerr << "Error: La estación no existe en la línea especificada." << std::endl;
+            }
+            cout<<endl;
+            cout<<endl;
             break;
         case 'C':
             // Saber cuántas líneas tiene la red Metro
@@ -78,16 +91,26 @@ int main() {
             std::cout << "Ingrese el nombre de la linea: ";
             std::cin >> nombreLinea;
             redMetro.agregarLinea(nombreLinea);
-            cout<<endl;
-            cout<<endl;
+            std::cout<<std::endl;
+            std::cout<<std::endl;
             break;
         case 'G':
+            // Eliminar una línea de la red Metro
+            std::cout << "Ingrese el nombre de la linea que desea eliminar: ";
+            std::cin >> nombreLinea;
+            if (redMetro.eliminarLinea(nombreLinea)) {
+                std::cout << "Línea eliminada exitosamente de la red Metro." << std::endl;
+            } else {
+                std::cerr << "Error: La línea especificada no existe." << std::endl;
+            }
+            std::cout<<endl;
+            std::cout<<endl;
             break;
         case 'H':
-
-            break;            
-        case 'I':
-            redMetro.graficarRed();
+            // Saber cuántas estaciones tiene la red Metro
+            std::cout << "La red Metro tiene " << redMetro.obtenerNumEstacionesRed() << " estaciones." << std::endl;
+            cout<<endl;
+            cout<<endl;
             break;
         case 'X':
             // Salir del programa
@@ -100,6 +123,12 @@ int main() {
             cout<<endl;
             cout<<endl;
             break;
+        case 'I':
+            redMetro.graficarRed();
+            cout<<endl;
+            cout<<endl;
+            break;
+
         }
 
     } while (opcion != 'X');

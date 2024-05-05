@@ -1,6 +1,20 @@
 #include "LineaMetro.h"
 #include <iostream>
 
+void LineaMetro::bool eliminarEstacion(const std::string& nombre) {
+    for (int i = 0; i < tamano; ++i) {
+        if (estaciones[i]->nombre == nombre) {
+            delete estaciones[i];
+            for (int j = i; j < tamano - 1; ++j) {
+                estaciones[j] = estaciones[j + 1];
+            }
+            tamano--;
+            return true;
+        }
+    }
+    return false;
+}
+
 void LineaMetro::graficar() const {
     std::cout << "Linea: ";
     for (int i = 0; i < tamano; ++i) {
@@ -21,7 +35,7 @@ void LineaMetro::graficar() const {
 
 
 
-void LineaMetro::expandirCapacidad() {
+void expandirCapacidad() {
     if (tamano == capacidad) {
         capacidad = (capacidad == 0) ? 1 : capacidad * 2;
         Estacion** nuevoArray = new Estacion*[capacidad];
@@ -61,9 +75,6 @@ void LineaMetro::agregarEstacionEnPosicion(const std::string& nombre, int posici
     estaciones[posicion] = new Estacion(nombre);
     tamano++;
 }
-
-
-
 
 bool LineaMetro::contieneEstacion(const std::string& nombre) {
     for (int i = 0; i < tamano; ++i) {
