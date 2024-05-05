@@ -1,6 +1,55 @@
 #include "RedMetro.h"
 #include <iostream>
 
+void RedMetro::agregarEstacionALineaEnPosicion(const std::string& nombreLinea, const std::string& nombreEstacion, int posicion) {
+    for (int i = 0; i < tamano; ++i) {
+        if (nombresLineas[i] == nombreLinea) {
+            lineas[i]->agregarEstacionEnPosicion(nombreEstacion, posicion);
+            return;
+        }
+    }
+    std::cerr << "Error: La línea especificada no existe." << std::endl;
+}
+
+
+bool RedMetro::eliminarEstacionDeLinea(const std::string& nombreLinea, const std::string& nombreEstacion) {
+    for (int i = 0; i < tamano; ++i) {
+        if (nombresLineas[i] == nombreLinea) {
+            return lineas[i]->eliminarEstacion(nombreEstacion);
+        }
+    }
+    std::cerr << "Error: La línea especificada no existe." << std::endl;
+    return false;
+}
+
+
+
+bool RedMetro::eliminarLinea(const std::string& nombreLinea) {
+    for (int i = 0; i < tamano; ++i) {
+        if (nombresLineas[i] == nombreLinea) {
+            delete lineas[i];
+            for (int j = i; j < tamano - 1; ++j) {
+                lineas[j] = lineas[j + 1];
+                nombresLineas[j] = nombresLineas[j + 1];
+            }
+            tamano--;
+            return true;
+        }
+    }
+    std::cerr << "Error: La línea especificada no existe." << std::endl;
+    return false;
+}
+
+
+int RedMetro::obtenerNumEstacionesRed() const {
+    int numEstaciones = 0;
+    for (int i = 0; i < tamano; ++i) {
+        numEstaciones += lineas[i]->obtenerNumEstaciones();
+    }
+    return numEstaciones;
+}
+
+
 void RedMetro::graficarRed() const {
     for (int i = 0; i < tamano; ++i) {
         std::cout << "Linea " << nombresLineas[i] << ":" << std::endl;

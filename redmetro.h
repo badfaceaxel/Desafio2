@@ -8,6 +8,10 @@ class RedMetro {
 public:
     RedMetro() : lineas(nullptr), nombresLineas(nullptr), capacidad(0), tamano(0) {}
 
+    void agregarEstacionALineaEnPosicion(const std::string& nombreLinea, const std::string& nombreEstacion, int posicion);
+    bool eliminarEstacionDeLinea(const std::string& nombreLinea, const std::string& nombreEstacion);
+    bool eliminarLinea(const std::string& nombreLinea);
+    int obtenerNumEstacionesRed() const;
     void graficarRed() const;
     void agregarLinea(const std::string& nombreLinea);
     void agregarEstacionALinea(const std::string& nombreLinea, const std::string& nombreEstacion);
