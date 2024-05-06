@@ -1,10 +1,19 @@
 #include "RedMetro.h"
 #include <iostream>
 
-void RedMetro::agregarEstacionALineaEnPosicion(const std::string& nombreLinea, const std::string& nombreEstacion, int posicion) {
+char RedMetro::obtenerNombreLinea(int indice) const {
+    return nombresLineas[indice];
+}
+
+LineaMetro* RedMetro::obtenerLineaMetro(int indice) const {
+    return lineas[indice];
+}
+
+
+void RedMetro::agregarEstacionALineaEnPosicion(const char& nombreLinea, const std::string& nombreEstacion, int posicion, const int& tiempoAnterior, const int& tiempoSiguiente) {
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
-            lineas[i]->agregarEstacionEnPosicion(nombreEstacion, posicion);
+            lineas[i]->agregarEstacionEnPosicion(nombreEstacion, posicion, tiempoAnterior, tiempoSiguiente);
             return;
         }
     }
@@ -12,7 +21,7 @@ void RedMetro::agregarEstacionALineaEnPosicion(const std::string& nombreLinea, c
 }
 
 
-bool RedMetro::eliminarEstacionDeLinea(const std::string& nombreLinea, const std::string& nombreEstacion) {
+bool RedMetro::eliminarEstacionDeLinea(const char& nombreLinea, const std::string& nombreEstacion) {
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
             return lineas[i]->eliminarEstacion(nombreEstacion);
@@ -24,7 +33,7 @@ bool RedMetro::eliminarEstacionDeLinea(const std::string& nombreLinea, const std
 
 
 
-bool RedMetro::eliminarLinea(const std::string& nombreLinea) {
+bool RedMetro::eliminarLinea(const char& nombreLinea) {
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
             delete lineas[i];
@@ -59,7 +68,7 @@ void RedMetro::graficarRed() const {
 }
 
 
-void RedMetro::agregarLinea(const std::string& nombreLinea) {
+void RedMetro::agregarLinea(const char& nombreLinea) {
     expandirCapacidad();
     lineas[tamano] = new LineaMetro();
     nombresLineas[tamano] = nombreLinea;
@@ -70,7 +79,7 @@ void RedMetro::expandirCapacidad() {
     if (tamano == capacidad) {
         capacidad = (capacidad == 0) ? 1 : capacidad * 2;
         LineaMetro** nuevoArrayLineas = new LineaMetro*[capacidad];
-        std::string* nuevoArrayNombres = new std::string[capacidad];
+        char* nuevoArrayNombres = new char[capacidad];
         for (int i = 0; i < tamano; ++i) {
             nuevoArrayLineas[i] = lineas[i];
             nuevoArrayNombres[i] = nombresLineas[i];
@@ -90,10 +99,11 @@ void RedMetro::expandirCapacidad() {
 
 
 
-void RedMetro::agregarEstacionALinea(const std::string& nombreLinea, const std::string& nombreEstacion) {
+void RedMetro::agregarEstacionALinea(const char& nombreLinea, const std::string& nombreEstacion) {
+    int tiempoSiguiente = 0;
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
-            lineas[i]->agregarEstacionAlInicio(nombreEstacion);
+            lineas[i]->agregarEstacionAlInicio(nombreEstacion, tiempoSiguiente);
             return;
         }
     }
@@ -106,7 +116,7 @@ int RedMetro::obtenerNumLineas() const {
     return tamano;
 }
 
-int RedMetro::obtenerNumEstacionesEnLinea(const std::string& nombreLinea) {
+int RedMetro::obtenerNumEstacionesEnLinea(const char& nombreLinea) {
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
             return lineas[i]->obtenerNumEstaciones();
@@ -115,7 +125,7 @@ int RedMetro::obtenerNumEstacionesEnLinea(const std::string& nombreLinea) {
     return -1; // Línea no encontrada
 }
 
-bool RedMetro::contieneEstacionEnLinea(const std::string& nombreLinea, const std::string& nombreEstacion) {
+bool RedMetro::contieneEstacionEnLinea(const char& nombreLinea, const std::string& nombreEstacion) {
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
             return lineas[i]->contieneEstacion(nombreEstacion);

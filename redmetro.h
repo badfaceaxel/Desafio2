@@ -8,21 +8,23 @@ class RedMetro {
 public:
     RedMetro() : lineas(nullptr), nombresLineas(nullptr), capacidad(0), tamano(0) {}
 
-    void agregarEstacionALineaEnPosicion(const std::string& nombreLinea, const std::string& nombreEstacion, int posicion);
-    bool eliminarEstacionDeLinea(const std::string& nombreLinea, const std::string& nombreEstacion);
-    bool eliminarLinea(const std::string& nombreLinea);
+    char obtenerNombreLinea(int indice) const;
+    LineaMetro* obtenerLineaMetro(int indice) const;
+    void agregarEstacionALineaEnPosicion(const char& nombreLinea, const std::string& nombreEstacion, int posicion, const int& tiempoAnterior, const int& tiempoSiguiente);
+    bool eliminarEstacionDeLinea(const char& nombreLinea, const std::string& nombreEstacion);
+    bool eliminarLinea(const char& nombreLinea);
     int obtenerNumEstacionesRed() const;
     void graficarRed() const;
-    void agregarLinea(const std::string& nombreLinea);
-    void agregarEstacionALinea(const std::string& nombreLinea, const std::string& nombreEstacion);
+    void agregarLinea(const char& nombreLinea);
+    void agregarEstacionALinea(const char& nombreLinea, const std::string& nombreEstacion);
 
     int obtenerNumLineas() const;
-    int obtenerNumEstacionesEnLinea(const std::string& nombreLinea);
-    bool contieneEstacionEnLinea(const std::string& nombreLinea, const std::string& nombreEstacion);
+    int obtenerNumEstacionesEnLinea(const char& nombreLinea);
+    bool contieneEstacionEnLinea(const char& nombreLinea, const std::string& nombreEstacion);
 
 private:
     LineaMetro** lineas;
-    std::string* nombresLineas;
+    char* nombresLineas;
     int capacidad;
     int tamano;
 
