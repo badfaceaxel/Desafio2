@@ -22,6 +22,7 @@ int main() {
         std::cout << "G. Eliminar una linea de la red Metro\n";
         std::cout << "H. Saber cuantas estaciones tiene la red Metro\n";
         std::cout << "I. Graficar la red Metro\n";
+        std::cout << "J. Saber el tiempo de llegada entre estaciones de una misma linea\n";
         std::cout << "X. Salir\n";
         std::cout << "Ingrese una opcion: ";
         std::cin >> opcion;
@@ -29,7 +30,8 @@ int main() {
         cout<<endl;
 
         std::string nombreLinea, nombreEstacion;
-        int posicion;
+        std::string nombreEstacionFin;
+        int posicion, tiempoAnterior, tiempoSiguiente, numEstaciones;
 
         switch (opcion) {
         case 'A':
@@ -40,10 +42,40 @@ int main() {
             std::cin >> nombreEstacion;
             std::cout << "Ingrese la posición en la que desea agregar la estación: ";
             std::cin >> posicion;
-            redMetro.agregarEstacionALineaEnPosicion(nombreLinea, nombreEstacion, posicion);
-            cout<<endl;
-            cout<<endl;
-            break;
+            numEstaciones = redMetro.obtenerNumEstacionesEnLinea(nombreLinea);
+            if (posicion == 0){
+                std::cout << "Ingrese el tiempo de la estacion anterior: ";
+                std::cin >> tiempoAnterior;
+                if(tiempoAnterior!=0){
+                    std::cerr << "Error: El tiempo anterior tiene que ser 0." << std::endl;
+                    break;
+                }
+                std::cout << "Ingrese el tiempo de la siguiente estacion: ";
+                std::cin >> tiempoSiguiente;
+                redMetro.agregarEstacionALineaEnPosicion(nombreLinea, nombreEstacion, posicion, tiempoAnterior, tiempoSiguiente);
+                break;
+            }
+            else if ((posicion) == (numEstaciones)){
+                std::cout << "Ingrese el tiempo de la siguiente estacion: ";
+                std::cin >> tiempoSiguiente;
+                if(tiempoSiguiente!=0){
+                    std::cerr << "Error: El tiempo siguiente tiene que ser 0." << std::endl;
+                    break;
+                }
+                std::cout << "Ingrese el tiempo de la anterior estacion: ";
+                std::cin >> tiempoAnterior;
+                redMetro.agregarEstacionALineaEnPosicion(nombreLinea, nombreEstacion, posicion, tiempoAnterior, tiempoSiguiente);
+                break;
+            }
+
+            else {
+                std::cout << "Ingrese el tiempo de la estacion anterior: ";
+                std::cin >> tiempoAnterior;
+                std::cout << "Ingrese el tiempo de la siguiente estacion: ";
+                std::cin >> tiempoSiguiente;
+                redMetro.agregarEstacionALineaEnPosicion(nombreLinea, nombreEstacion, posicion, tiempoAnterior, tiempoSiguiente);
+                break;
+            }
         case 'B':
             // Eliminar una estación de una línea
             std::cout << "Ingrese el nombre de la linea: ";
@@ -55,9 +87,9 @@ int main() {
             } else {
                 std::cerr << "Error: La estación no existe en la línea especificada." << std::endl;
             }
-            cout<<endl;
-            cout<<endl;
             break;
+            cout<<endl;
+            cout<<endl;
         case 'C':
             // Saber cuántas líneas tiene la red Metro
             std::cout << "La red Metro tiene " << redMetro.obtenerNumLineas() << " lineas." << std::endl;
@@ -109,6 +141,26 @@ int main() {
         case 'H':
             // Saber cuántas estaciones tiene la red Metro
             std::cout << "La red Metro tiene " << redMetro.obtenerNumEstacionesRed() << " estaciones." << std::endl;
+            cout<<endl;
+            cout<<endl;
+            break;
+        case 'J':
+            // Calcular tiempo entre estaciones
+            std::cout << "Ingrese el nombre de la linea: ";
+            std::cin >> nombreLinea;
+            std::cout << "Ingrese el nombre de la estacion de inicio: ";
+            std::cin >> nombreEstacion;
+            std::cout << "Ingrese el nombre de la estacion de fin: ";
+            std::cin >> nombreEstacionFin;
+            for (int i = 0; i < redMetro.obtenerNumLineas(); ++i) {
+                if (redMetro.obtenerNombreLinea(i) == nombreLinea) {
+                    int tiempo = redMetro.obtenerLineaMetro(i)->obtenerTiempoEntreEstaciones(nombreEstacion, nombreEstacionFin);
+                    if (tiempo != -1) {
+                        std::cout << "El tiempo entre las estaciones " << nombreEstacion << " y " << nombreEstacionFin << " es: " << tiempo << " minutos." << std::endl;
+                    }
+                    break;
+                }
+            }
             cout<<endl;
             cout<<endl;
             break;
