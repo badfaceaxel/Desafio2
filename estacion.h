@@ -3,12 +3,14 @@
 
 #include <iomanip>
 #include <string>
+using namespace std;
 
 class Estacion {
 public:
-    Estacion(const std::string& nombre) : nombre(nombre), siguiente(nullptr) {}
+    Estacion(const std::string& nombre, int tiempoSiguiente = 0) : nombre(nombre), siguiente(nullptr), tiempoSiguiente(tiempoSiguiente) {}
     std::string nombre;
     Estacion* siguiente;
+    int tiempoSiguiente;
 };
 
 #endif
