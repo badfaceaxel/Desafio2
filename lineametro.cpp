@@ -1,7 +1,7 @@
 #include "LineaMetro.h"
 #include <iostream>
 
-void LineaMetro::eliminarEstacion(const std::string& nombre) {
+bool LineaMetro::eliminarEstacion(const std::string& nombre) {
     int indiceEliminar = -1;
     for (int i = 0; i < tamano; ++i) {
         if (estaciones[i]->nombre == nombre) {
@@ -35,7 +35,8 @@ void LineaMetro::eliminarEstacion(const std::string& nombre) {
 
     tamano--;
     return true;
-    }
+}
+
 
 void LineaMetro::graficar() const {
     std::cout << "Linea: ";
@@ -55,7 +56,9 @@ void LineaMetro::graficar() const {
     std::cout << std::endl;
 }
 
-void expandirCapacidad() {
+
+
+void LineaMetro::expandirCapacidad() {
     if (tamano == capacidad) {
         capacidad = (capacidad == 0) ? 1 : capacidad * 2;
         Estacion** nuevoArray = new Estacion*[capacidad];
@@ -88,6 +91,7 @@ void LineaMetro::agregarEstacionAlFinal(const std::string& nombre, int tiempoAnt
     tamano++;
 }
 
+
 void LineaMetro::agregarEstacionEnPosicion(const std::string& nombre, int posicion, int tiempoAnterior, int tiempoSiguiente) {
     expandirCapacidad();
     if (posicion < 0 || posicion > tamano) {
@@ -107,6 +111,9 @@ void LineaMetro::agregarEstacionEnPosicion(const std::string& nombre, int posici
     tamano++;
 }
 
+
+
+
 bool LineaMetro::contieneEstacion(const std::string& nombre) {
     for (int i = 0; i < tamano; ++i) {
         if (estaciones[i]->nombre == nombre) {
@@ -119,6 +126,8 @@ bool LineaMetro::contieneEstacion(const std::string& nombre) {
 int LineaMetro::obtenerNumEstaciones() const {
     return tamano;
 }
+
+
 
 int LineaMetro::obtenerTiempoEntreEstaciones(const std::string& nombreEstacionInicio, const std::string& nombreEstacionFin) {
     int indiceInicio = -1, indiceFin = -1;
@@ -151,4 +160,3 @@ int LineaMetro::obtenerTiempoEntreEstaciones(const std::string& nombreEstacionIn
 
     return tiempo;
 }
-
