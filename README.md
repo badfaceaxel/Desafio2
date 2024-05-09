@@ -1,1 +1,1 @@
-Enlace a las notas/analisis/planteamiento del proyecto -> https://udeaeduco-my.sharepoint.com/:o:/r/personal/axel_ortega_udea_edu_co/Documents/Blocs%20de%20notas/Desafio2?d=w4e4b50ff1cf34f8391d9dee39a96b379&csf=1&web=1&e=Bsj3xI
+Enlace a las notas/analisis/planteamiento del proyecto -> https://udeaeduco-my.sharepoint.com/:o:/g/personal/axel_ortega_udea_edu_co/Ev9QS07zHINPkdne45qWs3kBIX0iEb1o826H8UJSmDoc0g?e=S9bwc0
