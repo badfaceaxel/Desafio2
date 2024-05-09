@@ -1,6 +1,14 @@
 #include "LineaMetro.h"
 #include <iostream>
 
+string LineaMetro::obtenerNombreEstacion(int indice) const {
+    if (indice >= 0 && indice < tamano) {
+        return estaciones[indice]->nombre;
+    }
+    return "";
+}
+
+
 bool LineaMetro::eliminarEstacion(const std::string& nombre) {
     int indiceEliminar = -1;
     for (int i = 0; i < tamano; ++i) {

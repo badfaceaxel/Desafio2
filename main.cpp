@@ -26,7 +26,20 @@ int main() {
         std::cout << "X. Salir\n";
         cout<<endl;
         std::cout << "Seleccione una opcion: ";
-        std::cin >> opcion;
+        std::string entrada;
+        std::cin >> entrada;
+        cout<<endl;
+        cout<<endl;
+
+        // Verificar si la longitud de la entrada es mayor que 1
+        if (entrada.length() > 1) {//length es un metodo de string
+            std::cout << "Error: Solo se permite ingresar un caracter. Por favor, ingrese una opcion valida." << std::endl;
+            cout<<endl;
+            cout<<endl;
+            continue; // Volver al inicio del bucle
+        }
+
+        opcion = entrada[0];
         cout<<endl;
         cout<<endl;
 
@@ -38,6 +51,7 @@ int main() {
 
         switch (opcion) {
         case 'A':
+        case 'a':
             std::cout << "Ingrese el nombre de la linea: ";
             std::cin >> nombreLinea;
             std::cout << "Ingrese el nombre de la estacion: ";
@@ -87,7 +101,9 @@ int main() {
                 break;
             }
 
-        case 'B':   //Verificar que la estacion no sea una estacion de transferencia (ya que estas no se pueden borrar)
+        case 'B':
+        case 'b':
+            //Verificar que la estacion no sea una estacion de transferencia (ya que estas no se pueden borrar)
             // Eliminar una estación de una línea
             std::cout << "Ingrese el nombre de la linea: ";
             std::cin >> nombreLinea;
@@ -104,12 +120,14 @@ int main() {
             }
             break;
         case 'C':
+        case 'c':
             // Saber cuántas líneas tiene la red Metro
             std::cout << "La red Metro tiene " << redMetro.obtenerNumLineas() << " lineas." << std::endl;
             cout<<endl;
             cout<<endl;
             break;
         case 'D':
+        case 'd':
             // Saber cuántas estaciones tiene una línea dada
             std::cout << "Ingrese el nombre de la linea: ";
             cout<<endl;
@@ -120,6 +138,7 @@ int main() {
             cout<<endl;
             break;
         case 'E':
+        case 'e':
             // Saber si una estación dada pertenece a una línea específica
             std::cout << "Ingrese el nombre de la estacion: ";
             std::cin >> nombreEstacion;
@@ -136,6 +155,7 @@ int main() {
             }
             break;
         case 'F':
+        case 'f':
             // Agregar una línea a la red Metro
             std::cout << "Ingrese el nombre de la linea: ";
             cout<<endl;
@@ -145,7 +165,8 @@ int main() {
             cout<<endl;
             cout<<endl;
             break;
-        case 'G':  //SOLAMENTE SE PUEDE BORRAR UNA LINEA SI NO CONTIENE ESTACIONES DE TRANSFERENCIA
+        case 'G':
+        case 'g':            //SOLAMENTE SE PUEDE BORRAR UNA LINEA SI NO CONTIENE ESTACIONES DE TRANSFERENCIA
             // Eliminar una línea de la red Metro
             std::cout << "Ingrese el nombre de la linea que desea eliminar: ";
             std::cin >> nombreLinea;
@@ -161,12 +182,14 @@ int main() {
             break;   //Con el arreglo estacionesTransf, corroborar cuantas estaciones de transferencia hay en la linea
 
         case 'H':
+        case 'h':
             // Saber cuántas estaciones tiene la red Metro
             std::cout << "La red Metro tiene " << redMetro.obtenerNumEstacionesRed() << " estaciones." << std::endl;
             cout<<endl;
             cout<<endl;
             break;
         case 'J':
+        case 'j':
             // Calcular tiempo entre estaciones
             std::cout << "Ingrese el nombre de la linea: ";
             std::cin >> nombreLinea;
@@ -187,12 +210,14 @@ int main() {
             }
             break;
         case 'K':
+        case 'k':
             // Mostrar estaciones de transferencia de la red Metro
             redMetro.imprimirEstacionesTransferencia();
             cout<<endl;
             cout<<endl;
             break;
         case 'X':
+        case 'x':
             // Salir del programa
             std::cout << "Saliendo del programa..." << std::endl;
             cout<<endl;
@@ -204,6 +229,7 @@ int main() {
             cout<<endl;
             break;
         case 'I':
+        case 'i':
             redMetro.graficarRed();
             cout<<endl;
             cout<<endl;

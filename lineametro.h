@@ -17,6 +17,8 @@ public:
 
     bool contieneEstacion(const std::string& nombre);
     int obtenerNumEstaciones() const;
+    string obtenerNombreEstacion(int indice) const;
+
 
 private:
     Estacion** estaciones;
@@ -24,6 +26,7 @@ private:
     int tamano;
 
     void expandirCapacidad();
+
 };
 
 #endif
