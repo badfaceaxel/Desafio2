@@ -68,37 +68,68 @@ void RedMetro::agregarEstacionALineaEnPosicion(const char& nombreLinea, const st
 bool RedMetro::eliminarEstacionDeLinea(const char& nombreLinea, const std::string& nombreEstacion) {
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
+            // Verificar si la estación es una estacion de transferencia
+            if (existeEstacionTransferencia(nombreEstacion)) {
+                std::cerr << "Error: No se puede eliminar la estacion " << nombreEstacion << " porque es una estacion de transferencia." << std::endl;
+                cout<<endl;
+                cout<<endl;
+                return false;
+            }
+
+            // Si no es una estacion de transferencia, eliminarla
             return lineas[i]->eliminarEstacion(nombreEstacion);
         }
     }
-    std::cerr << "Error: La línea especificada no existe." << std::endl;
+    std::cerr << "Error: La linea especificada no existe." << std::endl;
+    cout<<endl;
+    cout<<endl;
     return false;
 }
 
 
 
 bool RedMetro::eliminarLinea(const char& nombreLinea) {
+    // Buscar el índice de la línea a eliminar
+    int indiceLinea = -1;
     for (int i = 0; i < tamano; ++i) {
         if (nombresLineas[i] == nombreLinea) {
-            delete lineas[i];
-            for (int j = i; j < tamano - 1; ++j) {
-                lineas[j] = lineas[j + 1];
-                nombresLineas[j] = nombresLineas[j + 1];
-            }
-            tamano--;
-            return true;
+            indiceLinea = i;
+            break;
         }
     }
-    std::cerr << "Error: La línea especificada no existe." << std::endl;
-    return false;
+
+    // Si la línea no existe, retornar falso
+    if (indiceLinea == -1) {
+        std::cerr << "Error: La línea especificada no existe." << std::endl;
+        return false;
+    }
+
+    // Verificar si la línea contiene alguna estación de transferencia
+    for (int i = 0; i < lineas[indiceLinea]->obtenerNumEstaciones(); ++i) {
+        std::string nombreEstacion = lineas[indiceLinea]->obtenerNombreEstacion(i);
+        if (existeEstacionTransferencia(nombreEstacion)) {
+            std::cerr << "Error: La línea contiene una estación de transferencia y no puede ser eliminada." << std::endl;
+            return false;
+        }
+    }
+
+    // Si la línea no contiene estaciones de transferencia, eliminarla
+    delete lineas[indiceLinea];
+    for (int j = indiceLinea; j < tamano - 1; ++j) {
+        lineas[j] = lineas[j + 1];
+        nombresLineas[j] = nombresLineas[j + 1];
+    }
+    tamano--;
+    return true;
 }
 
 
 int RedMetro::obtenerNumEstacionesRed() const {
-    int numEstaciones = 0;
+    int numEstaciones1 = 0;
     for (int i = 0; i < tamano; ++i) {
-        numEstaciones += lineas[i]->obtenerNumEstaciones();
+        numEstaciones1 += lineas[i]->obtenerNumEstaciones();
     }
+    int numEstaciones = (numEstaciones1-tamano)+1;
     return numEstaciones;
 }
 
